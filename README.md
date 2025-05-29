@@ -16,7 +16,7 @@ This repository provides shared resources for personal projects. To use these te
 
 ## Contributing
 
-See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines on how to contribute to this repository.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this repository.
 
 ## License
 
