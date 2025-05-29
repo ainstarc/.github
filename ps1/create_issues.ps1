@@ -1,10 +1,11 @@
 $repos = @(
-    ".github",
-    "Countdown",
-    "the-ain-verse",
-    "Guess-the-Roll",
-    "BlankCanvas",
-    "ContinueSequence"
+    # ".github",
+    # "Countdown",
+    # "the-ain-verse",
+    # "Guess-the-Roll",
+    # "BlankCanvas",
+    # "ContinueSequence",
+    "github-repo-visualizer"
 )
 
 $title = "[Hygiene] Apply README, CHANGELOG, SW, and Post-PR Fixes"
@@ -23,7 +24,7 @@ foreach ($repo in $repos) {
     Write-Host "Checking for existing open issues with the title in $repo..."
 
     # Search for open issues with the exact title (case-sensitive)
-    $existingIssueNumber = gh issue list --repo "ainstarc/$repo" --state open --json number,title --jq ".[] | select(.title -eq '$title') | .number" 2>$null
+    $existingIssueNumber = gh issue list --repo "ainstarc/$repo" --state open --json number, title --jq ".[] | select(.title -eq '$title') | .number" 2>$null
 
     if ($existingIssueNumber) {
         Write-Host "Found existing issue #$existingIssueNumber in $repo. Updating issue body..."
