@@ -1,3 +1,6 @@
+# This script uses GitHub CLI (gh) to ensure a specific hygiene issue exists in each listed repository.
+# If the issue already exists (by title), it updates the body; otherwise, it creates a new issue.
+
 $repos = @(
     # ".github",
     # "Countdown",
