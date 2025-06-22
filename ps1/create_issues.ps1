@@ -8,7 +8,11 @@ $repos = @(
     # "Guess-the-Roll",
     # "BlankCanvas",
     # "ContinueSequence",
-    "github-repo-visualizer"
+    # "github-repo-visualizer",
+    "git-init",
+    # "pixel-realm",
+    # "bingo-game",
+    "git-init-api"
 )
 
 $title = "[Hygiene] Apply README, CHANGELOG, SW, and Post-PR Fixes"

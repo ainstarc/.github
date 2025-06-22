@@ -1,9 +1,12 @@
-# This script uses GitHub CLI (gh) to ensure all your repositories have a consistent set of issue labels.
-# It defines standard labels, fetches your repositories, and creates any missing labels in each repo.
-
+# This script uses GitHub CLI (gh) to update issue labels for specific repositories.
+# It defines standard labels and creates any missing labels in the specified repos.
 
 # Parameters
 $UserName = "ainstarc"
+$RepoNames = @(
+    "git-init",
+    "git-init-api"
+) # Replace with your actual repository names
 
 # Define labels with corrected names, colors, and descriptions
 $Labels = @(
@@ -36,20 +39,13 @@ $Labels = @(
     @{ Name = "legacy"; Color = "9e9e9e"; Description = "Applies to the previous version of the platform/site" },
     @{ Name = "archived"; Color = "586e75"; Description = "Kept for reference, not to be worked on" },
     @{ Name = "deprecated"; Color = "cccccc"; Description = "No longer supported or recommended" }
-
 )
 
-
-# Fetch all repos under the user/org
-Write-Host "Fetching repositories for user/org '$UserName'..."
-$reposJson = gh repo list $UserName --limit 100 --json name
-$repos = ($reposJson | ConvertFrom-Json).name
-
-foreach ($repo in $repos) {
-    Write-Host "Processing repo: $repo"
+foreach ($RepoName in $RepoNames) {
+    Write-Host "Processing repo: $RepoName"
 
     # Get existing labels in repo
-    $labelsJson = gh label list -R "$UserName/$repo" --json name
+    $labelsJson = gh label list -R "$UserName/$RepoName" --json name
     $existingLabels = ($labelsJson | ConvertFrom-Json).name
 
     foreach ($label in $Labels) {
@@ -58,13 +54,13 @@ foreach ($repo in $repos) {
         $labelDescription = $label.Description
 
         if ($existingLabels -contains $labelName) {
-            Write-Host "Label '$labelName' already exists in $repo. Skipping..."
+            Write-Host "Label '$labelName' already exists in $RepoName. Skipping..."
         }
         else {
-            Write-Host "Creating label '$labelName' in $repo"
-            gh label create $labelName --color $labelColor --description "$labelDescription" -R "$UserName/$repo"
+            Write-Host "Creating label '$labelName' in $RepoName"
+            gh label create $labelName --color $labelColor --description "$labelDescription" -R "$UserName/$RepoName"
         }
     }
-}
 
-Write-Host "Done processing labels."
+    Write-Host "Done processing labels for $RepoName."
+}
